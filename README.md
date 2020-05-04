@@ -1,5 +1,5 @@
 # HIP1_associated_proteins
-Data from the manuscript: "Guilt by association: Genes related to the abundance of Highly Iterated Palindromes in Cyanobacteria" by  Ulises Rodriguez-Cruz, Gabriel Moreno-Hagelsieb and Luis Delaye.
+Data from the manuscript: "Guilt by association: Genes related to the abundance of Highly Iterated Palindromes in Cyanobacteria" by  Ulises Rodriguez-Cruz, Gabriel Moreno-Hagelsieb, Cei Abreu and Luis Delaye.
 
 The following files are available:
 
@@ -9,9 +9,6 @@ Maximum-likelihood cyanobacterial tree inferred from 32 concatenated protein seq
 - vector-HIPs.csv.
 Vector used for Discrete analysis. 1: Cyanobacteria classified as having HIPs; 0) Cyanobacteria classified as not having HIPs.
 
-- enrichment-of-palindromic-octamers.csv.
-Enrichment (observed/expected) of all 256 palindromic octamers in 127 cyanobacterial genomes. The expected number of octamers was calculated by using a second-order Markov chain.
-
-- frequency-of-palindromic-octamers.txt.
-Frequency by kbp of all 256 palindromic octamers in 127 cyanobacterial genomes.
+- ObsExp-palindromic-octamers.csv.
+Frequency of all 256 palindromic octamers in 126 cyanobacterial genomes; expected frequency of all 256 palindromic octamers according to Markov model; enrichment p-value and FDR. 
 
