@@ -12,3 +12,6 @@ Vector used for Discrete analysis. 1: Cyanobacteria classified as having HIPs; 0
 - ObsExp-palindromic-octamers.csv.
 Frequency of all 256 palindromic octamers in 126 cyanobacterial genomes; expected frequency of all 256 palindromic octamers according to Markov model; enrichment p-value and FDR. 
 
+- CyanoGenomes.txt
+Genome versions used in this study.
+
