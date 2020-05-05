@@ -18,3 +18,5 @@ Genome versions used in this study.
 - markovMs.pl
 A Perl script to count the number of observed octameric palindromes and to estimate the number of expected octameric palindromes by using markov models.
 
+- markovMs.R
+A R script to estimate p-values and FDRs of observed versus expected octameric palindromes.
