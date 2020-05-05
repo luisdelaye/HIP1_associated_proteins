@@ -15,3 +15,6 @@ Frequency of all 256 palindromic octamers in 126 cyanobacterial genomes; expecte
 - CyanoGenomes.txt
 Genome versions used in this study.
 
+- markovMs.pl
+A Perl script to count the number of observed octameric palindromes and to estimate the number of expected octameric palindromes by using markov models.
+
