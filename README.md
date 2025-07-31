@@ -9,6 +9,9 @@ Maximum-likelihood cyanobacterial tree inferred from 32 concatenated protein seq
 - vector-HIPs.csv.
 Vector used for Discrete analysis. 1: Cyanobacteria classified as having HIPs; 0) Cyanobacteria classified as not having HIPs.
 
+- vector-HIP1s.csv.
+Vector used for Discrete analysis. 1: Cyanobacteria classified as having HIP1; 0) Cyanobacteria classified as not having HIP1.
+
 - ObsExp-palindromic-octamers.csv.
 Frequency of all 256 palindromic octamers in 126 cyanobacterial genomes; expected frequency of all 256 palindromic octamers according to Markov model; enrichment p-value and FDR. 
 
