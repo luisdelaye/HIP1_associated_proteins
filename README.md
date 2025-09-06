@@ -1,16 +1,22 @@
 # HIP1_associated_proteins
-Data from the manuscript: "Guilt by association: Genes related to the abundance of Highly Iterated Palindromes in Cyanobacteria" by  Ulises Rodriguez-Cruz, Gabriel Moreno-Hagelsieb, Cei Abreu and Luis Delaye.
+Data from the manuscript: "Phylogenetic correlation between the Type IV Secretion System and HIP1 suggest an adaptation for horizontal gene transfer conserved at the phylum level" by  Ulises Rodriguez-Cruz, Gabriel Moreno-Hagelsieb, Cei Abreu and Luis Delaye.
 
 The following files are available:
 
 - cyanobacterial-tree.nwk.
 Maximum-likelihood cyanobacterial tree inferred from 32 concatenated protein sequences in newick format. 
 
-- vector-HIPs.csv.
-Vector used for Discrete analysis. 1: Cyanobacteria classified as having HIPs; 0) Cyanobacteria classified as not having HIPs.
+- vector-1.csv.
+Vector used for Discrete analysis.
 
-- vector-HIP1s.csv.
-Vector used for Discrete analysis. 1: Cyanobacteria classified as having HIP1; 0) Cyanobacteria classified as not having HIP1.
+- vector-2.csv.
+Vector used for Discrete analysis.
+
+- vector-3.csv.
+Vector used for Discrete analysis.
+
+- vector-4.csv.
+Vector used for Discrete analysis.
 
 - ObsExp-palindromic-octamers.csv.
 Frequency of all 256 palindromic octamers in 126 cyanobacterial genomes; expected frequency of all 256 palindromic octamers according to Markov model; enrichment p-value and FDR. 
