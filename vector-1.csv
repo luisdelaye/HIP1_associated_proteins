@@ -1,7 +1,7 @@
 Gloeobacter_kilaueensis_JS1	0
 Gloeobacter_violaceus_PCC_7421	0
-Synechococcus_sp._JA-2-3B_a_2-13	0
-Synechococcus_sp._JA-3-3Ab	0
+Synechococcus_sp._JA-2-3B_a_2-13	1
+Synechococcus_sp._JA-3-3Ab	1
 Pseudanabaena_sp._PCC_7367	1
 Pseudanabaena_sp._ABRG5-3	1
 Synechococcus_sp._PCC_7502	1
@@ -40,7 +40,7 @@ Prochlorococcus_marinus_str._AS9601	0
 Prochlorococcus_marinus_str._MIT_9301	0
 Acaryochloris_marina_MBIC11017	1
 Cyanothece_sp._PCC_7425	1
-Synechococcus_sp._PCC_6312	0
+Synechococcus_sp._PCC_6312	1
 Synechococcus_lividus_PCC_6715	1
 Thermosynechococcus_elongatus_BP-1	1
 Thermosynechococcus_vulcanus_NIES-2134	1
@@ -62,7 +62,7 @@ Fischerella_sp._NIES-3754	1
 Calothrix_sp._336_3	1
 Calothrix_sp._NIES-3974	1
 Calothrix_sp._PCC_6303	1
-Calothrix_sp._NIES-4071	0
+Calothrix_sp._NIES-4071	1
 Calothrix_sp._NIES-4101	1
 Nostoc_sp._HK-01	1
 Nostoc_sp._PCC_7107	1
