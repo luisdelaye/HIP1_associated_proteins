@@ -1,34 +1,48 @@
 #!/usr/bin/perl
-
-# This script counts the number of observed octameric palindromes (like GCGAGCGC) in
-# a set of genomes located in a directory named: ../GenomasGbk/.
-# This script also estimate the number of observed octameric palindromes by using 
-# markov models.
-
+#----------------------------------------------------------------------------------------
 # Script: markovM.pl
-# use: 
-# perl markovM.pl 
-# out: markov-outfile.txt
-
-# Luis Jose Delaye Arredondo
+# Description: Analyzes palindrome sequences in genomic data using Markov chain
+#              models of orders 0-3 to calculate expected frequencies
+# Usage: perl markovM.pl <fasta_file>
+# Input: FASTA file containing genomic sequence (must be in the same directory)
+#        palindromes.csv file with palindrome sequences (must be in the same directory)
+#
+# The file palindromes.csv must contain the following line:
+# "AAAATTTT","AAACGTTT","AAAGCTTT","AAATATTT","AACATGTT","AACCGGTT","AACGCGTT","AACTAGTT","AAGATCTT","AAGCGCTT","AAGGCCTT","AAGTACTT","AATATATT","AATCGATT","AATGCATT","AATTAATT","ACAATTGT","ACACGTGT","ACAGCTGT","ACATATGT","ACCATGGT","ACCCGGGT","ACCGCGGT","ACCTAGGT","ACGATCGT","ACGCGCGT","ACGGCCGT","ACGTACGT","ACTATAGT","ACTCGAGT","ACTGCAGT","ACTTAAGT","AGAATTCT","AGACGTCT","AGAGCTCT","AGATATCT","AGCATGCT","AGCCGGCT","AGCGCGCT","AGCTAGCT","AGGATCCT","AGGCGCCT","AGGGCCCT","AGGTACCT","AGTATACT","AGTCGACT","AGTGCACT","AGTTAACT","ATAATTAT","ATACGTAT","ATAGCTAT","ATATATAT","ATCATGAT","ATCCGGAT","ATCGCGAT","ATCTAGAT","ATGATCAT","ATGCGCAT","ATGGCCAT","ATGTACAT","ATTATAAT","ATTCGAAT","ATTGCAAT","ATTTAAAT","CAAATTTG","CAACGTTG","CAAGCTTG","CAATATTG","CACATGTG","CACCGGTG","CACGCGTG","CACTAGTG","CAGATCTG","CAGCGCTG","CAGGCCTG","CAGTACTG","CATATATG","CATCGATG","CATGCATG","CATTAATG","CCAATTGG","CCACGTGG","CCAGCTGG","CCATATGG","CCCATGGG","CCCCGGGG","CCCGCGGG","CCCTAGGG","CCGATCGG","CCGCGCGG","CCGGCCGG","CCGTACGG","CCTATAGG","CCTCGAGG","CCTGCAGG","CCTTAAGG","CGAATTCG","CGACGTCG","CGAGCTCG","CGATATCG","CGCATGCG","CGCCGGCG","CGCGCGCG","CGCTAGCG","CGGATCCG","CGGCGCCG","CGGGCCCG","CGGTACCG","CGTATACG","CGTCGACG","CGTGCACG","CGTTAACG","CTAATTAG","CTACGTAG","CTAGCTAG","CTATATAG","CTCATGAG","CTCCGGAG","CTCGCGAG","CTCTAGAG","CTGATCAG","CTGCGCAG","CTGGCCAG","CTGTACAG","CTTATAAG","CTTCGAAG","CTTGCAAG","CTTTAAAG","GAAATTTC","GAACGTTC","GAAGCTTC","GAATATTC","GACATGTC","GACCGGTC","GACGCGTC","GACTAGTC","GAGATCTC","GAGCGCTC","GAGGCCTC","GAGTACTC","GATATATC","GATCGATC","GATGCATC","GATTAATC","GCAATTGC","GCACGTGC","GCAGCTGC","GCATATGC","GCCATGGC","GCCCGGGC","GCCGCGGC","GCCTAGGC","GCGATCGC","GCGCGCGC","GCGGCCGC","GCGTACGC","GCTATAGC","GCTCGAGC","GCTGCAGC","GCTTAAGC","GGAATTCC","GGACGTCC","GGAGCTCC","GGATATCC","GGCATGCC","GGCCGGCC","GGCGCGCC","GGCTAGCC","GGGATCCC","GGGCGCCC","GGGGCCCC","GGGTACCC","GGTATACC","GGTCGACC","GGTGCACC","GGTTAACC","GTAATTAC","GTACGTAC","GTAGCTAC","GTATATAC","GTCATGAC","GTCCGGAC","GTCGCGAC","GTCTAGAC","GTGATCAC","GTGCGCAC","GTGGCCAC","GTGTACAC","GTTATAAC","GTTCGAAC","GTTGCAAC","GTTTAAAC","TAAATTTA","TAACGTTA","TAAGCTTA","TAATATTA","TACATGTA","TACCGGTA","TACGCGTA","TACTAGTA","TAGATCTA","TAGCGCTA","TAGGCCTA","TAGTACTA","TATATATA","TATCGATA","TATGCATA","TATTAATA","TCAATTGA","TCACGTGA","TCAGCTGA","TCATATGA","TCCATGGA","TCCCGGGA","TCCGCGGA","TCCTAGGA","TCGATCGA","TCGCGCGA","TCGGCCGA","TCGTACGA","TCTATAGA","TCTCGAGA","TCTGCAGA","TCTTAAGA","TGAATTCA","TGACGTCA","TGAGCTCA","TGATATCA","TGCATGCA","TGCCGGCA","TGCGCGCA","TGCTAGCA","TGGATCCA","TGGCGCCA","TGGGCCCA","TGGTACCA","TGTATACA","TGTCGACA","TGTGCACA","TGTTAACA","TTAATTAA","TTACGTAA","TTAGCTAA","TTATATAA","TTCATGAA","TTCCGGAA","TTCGCGAA","TTCTAGAA","TTGATCAA","TTGCGCAA","TTGGCCAA","TTGTACAA","TTTATAAA","TTTCGAAA","TTTGCAAA","TTTTAAAA"
+#
+# Output: A .outputMarkov.txt file with observed and expected palindrome frequencies
+#
+# Output Columns:
+#
+#| Column     | Description                        |
+#| ---------- | ---------------------------------- |
+#| spp        | Species name                       |
+#| acc        | Accession ID                       |
+#| palindrom  | Palindromic sequence               |
+#| obs        | Observed frequencies               |
+#| markov0-3  | Markov model estimates (order 0–3) |
+#| genomesize | Genome size in base pairs          |
+#| A, T, C, G | Nucleotide composition counts      |
+#| N          | Number of ambiguous bases          |
+#
+# Example: perl markovM.pl genome.fasta
+#
+# Author: Luis Jose Delaye Arredondo
 # luis.delaye@cinvestav.mx
 # http://www.ira.cinvestav.mx/evolutionary.genomics
 # Copy left
 # : - )
-
-# The file palindromes.csv must contain the following line:
-# "AAAATTTT","AAACGTTT","AAAGCTTT","AAATATTT","AACATGTT","AACCGGTT","AACGCGTT","AACTAGTT","AAGATCTT","AAGCGCTT","AAGGCCTT","AAGTACTT","AATATATT","AATCGATT","AATGCATT","AATTAATT","ACAATTGT","ACACGTGT","ACAGCTGT","ACATATGT","ACCATGGT","ACCCGGGT","ACCGCGGT","ACCTAGGT","ACGATCGT","ACGCGCGT","ACGGCCGT","ACGTACGT","ACTATAGT","ACTCGAGT","ACTGCAGT","ACTTAAGT","AGAATTCT","AGACGTCT","AGAGCTCT","AGATATCT","AGCATGCT","AGCCGGCT","AGCGCGCT","AGCTAGCT","AGGATCCT","AGGCGCCT","AGGGCCCT","AGGTACCT","AGTATACT","AGTCGACT","AGTGCACT","AGTTAACT","ATAATTAT","ATACGTAT","ATAGCTAT","ATATATAT","ATCATGAT","ATCCGGAT","ATCGCGAT","ATCTAGAT","ATGATCAT","ATGCGCAT","ATGGCCAT","ATGTACAT","ATTATAAT","ATTCGAAT","ATTGCAAT","ATTTAAAT","CAAATTTG","CAACGTTG","CAAGCTTG","CAATATTG","CACATGTG","CACCGGTG","CACGCGTG","CACTAGTG","CAGATCTG","CAGCGCTG","CAGGCCTG","CAGTACTG","CATATATG","CATCGATG","CATGCATG","CATTAATG","CCAATTGG","CCACGTGG","CCAGCTGG","CCATATGG","CCCATGGG","CCCCGGGG","CCCGCGGG","CCCTAGGG","CCGATCGG","CCGCGCGG","CCGGCCGG","CCGTACGG","CCTATAGG","CCTCGAGG","CCTGCAGG","CCTTAAGG","CGAATTCG","CGACGTCG","CGAGCTCG","CGATATCG","CGCATGCG","CGCCGGCG","CGCGCGCG","CGCTAGCG","CGGATCCG","CGGCGCCG","CGGGCCCG","CGGTACCG","CGTATACG","CGTCGACG","CGTGCACG","CGTTAACG","CTAATTAG","CTACGTAG","CTAGCTAG","CTATATAG","CTCATGAG","CTCCGGAG","CTCGCGAG","CTCTAGAG","CTGATCAG","CTGCGCAG","CTGGCCAG","CTGTACAG","CTTATAAG","CTTCGAAG","CTTGCAAG","CTTTAAAG","GAAATTTC","GAACGTTC","GAAGCTTC","GAATATTC","GACATGTC","GACCGGTC","GACGCGTC","GACTAGTC","GAGATCTC","GAGCGCTC","GAGGCCTC","GAGTACTC","GATATATC","GATCGATC","GATGCATC","GATTAATC","GCAATTGC","GCACGTGC","GCAGCTGC","GCATATGC","GCCATGGC","GCCCGGGC","GCCGCGGC","GCCTAGGC","GCGATCGC","GCGCGCGC","GCGGCCGC","GCGTACGC","GCTATAGC","GCTCGAGC","GCTGCAGC","GCTTAAGC","GGAATTCC","GGACGTCC","GGAGCTCC","GGATATCC","GGCATGCC","GGCCGGCC","GGCGCGCC","GGCTAGCC","GGGATCCC","GGGCGCCC","GGGGCCCC","GGGTACCC","GGTATACC","GGTCGACC","GGTGCACC","GGTTAACC","GTAATTAC","GTACGTAC","GTAGCTAC","GTATATAC","GTCATGAC","GTCCGGAC","GTCGCGAC","GTCTAGAC","GTGATCAC","GTGCGCAC","GTGGCCAC","GTGTACAC","GTTATAAC","GTTCGAAC","GTTGCAAC","GTTTAAAC","TAAATTTA","TAACGTTA","TAAGCTTA","TAATATTA","TACATGTA","TACCGGTA","TACGCGTA","TACTAGTA","TAGATCTA","TAGCGCTA","TAGGCCTA","TAGTACTA","TATATATA","TATCGATA","TATGCATA","TATTAATA","TCAATTGA","TCACGTGA","TCAGCTGA","TCATATGA","TCCATGGA","TCCCGGGA","TCCGCGGA","TCCTAGGA","TCGATCGA","TCGCGCGA","TCGGCCGA","TCGTACGA","TCTATAGA","TCTCGAGA","TCTGCAGA","TCTTAAGA","TGAATTCA","TGACGTCA","TGAGCTCA","TGATATCA","TGCATGCA","TGCCGGCA","TGCGCGCA","TGCTAGCA","TGGATCCA","TGGCGCCA","TGGGCCCA","TGGTACCA","TGTATACA","TGTCGACA","TGTGCACA","TGTTAACA","TTAATTAA","TTACGTAA","TTAGCTAA","TTATATAA","TTCATGAA","TTCCGGAA","TTCGCGAA","TTCTAGAA","TTGATCAA","TTGCGCAA","TTGGCCAA","TTGTACAA","TTTATAAA","TTTCGAAA","TTTGCAAA","TTTTAAAA"
-
-# This script requieres a directory named: ../GenomasGbk/ containing all the genomes
-# in fasta format, example: Acaryochloris_marina_MBIC11017.fasta
-
-
+#
+#----------------------------------------------------------------------------------------
 use strict;
 
-my $n = 0;
+my $fasta = $ARGV[0]; 
+my @files = ();  
+my $out="";  
 
+my $n = 0; 
 my $string;
-open (MIA, "palindromes.csv") or die ("No puedo abrir palindromes.csv\n");
+open (MIA, "palindromes.csv") or die ("Cannot open palindromes.csv\n");
 while (my $linea = <MIA>){
 	chomp ($linea);
 	$string = $linea;
@@ -38,18 +52,16 @@ my @palindromes = split (/,/, $string);
 for (my $i = 0; $i <= $#palindromes; $i++){
 	$palindromes[$i] =~ s/"//g;
 	$n++;
-	#print ("($palindromes[$i])\t$n\n");
 }
 
-my @files = glob("../GenomesGbk/*.fasta");
+$files[0]=$fasta;
+$out = $fasta;
+$out =~ s/\.fna|\.fasta/\.outputMarkov.txt/;
 
-open (ROB, ">markov-outfile.txt") or die ("No puedo abrir markov-outfile.txt\n");
+open (ROB, ">$out") or die ("$!\n");
 print ROB ("spp\tacc\tpalindrom\tobs\tmarkov0\tmarkov1\tmarkov2\tmarkov3\tgenomesize\tA\tT\tC\tG\tN\n");
 for (my $i = 0; $i <= $#files; $i++){
 	my $spp = $files[$i];
-	$spp =~ s/\.\.\/\.\.\/GenomasGbk_1\///; 
-	$spp =~ s/.fasta//;
-	#print ("$spp\n");
 	my $freturn = ();
 	for (my $j = 0; $j <= $#palindromes; $j++){
 		$freturn = markov($files[$i], $palindromes[$j]);
@@ -62,14 +74,13 @@ for (my $i = 0; $i <= $#files; $i++){
 				print ROB ("${$freturn}[$j]\n");
 			}
 		}
-		#my $pausa = <STDIN>;
 	}
 }
 close (ROB);
 
 sub markov {
 	#-----------------------------------------------------------------------------------------
-	# Cargo el genoma
+	# Load genome
 	my $file = $_[0];
 	my $octa = $_[1];
 	print ("$file\t$octa\n");
@@ -79,8 +90,8 @@ sub markov {
 	my $acc;
 	
 	#-----------------------------------------------------------------------------------------
-	# Cargo el genoma
-	open (MIA, "$file") or die ("No puedo abrir $file\n");
+	# Load genome
+	open (MIA, "$file") or die ("Cannot open $file\n");
 	while (my $linea = <MIA>){
 		chomp ($linea);
 		if ($linea !~ />/){
@@ -95,7 +106,7 @@ sub markov {
 	my @p = split (//, $octa);
 	
 	#-----------------------------------------------------------------------------------------
-	# Cuento las frecuencias
+	# Count frequencies
 	
 	my $A = 0;
 	my $T = 0;
@@ -129,17 +140,16 @@ sub markov {
 		} else {
 			$N++;
 		}
-		# dinucleotidos para Markov 1
+		# dinucleotides for Markov 1
 		for (my $j = 0; $j < $#p; $j++){
 			if ($G[$i].$G[$i+1] eq $p[$j].$p[$j+1]){
 				if (!exists $hash2{$i}){
 					$Counts2{$p[$j].$p[$j+1]}++;
-					#print ("($i : $j)\t$G[$i].$G[$i+1] eq $p[$j].$p[$j+1]\t=\t$Counts2{$p[$j].$p[$j+1]}\n");
 					$hash2{$i} = 1;
 				}
 			}	
 		}
-		# trinucleotidos para Markov 2
+		# trinucleotides for Markov 2
 		for (my $j = 0; $j < ($#p -1); $j++){
 			if ($G[$i].$G[$i+1].$G[$i+2] eq $p[$j].$p[$j+1].$p[$j+2]){
 				if (!exists $hash3{$i}){
@@ -148,7 +158,7 @@ sub markov {
 				}
 			}	
 		}
-		# tetranucleotidos para Markov 3
+		# tetranucleotides for Markov 3
 		for (my $j = 0; $j < ($#p -2); $j++){
 			if ($G[$i].$G[$i+1].$G[$i+2].$G[$i+3] eq $p[$j].$p[$j+1].$p[$j+2].$p[$j+3]){
 				if (!exists $hash4{$i}){
@@ -163,8 +173,8 @@ sub markov {
 	my $GS = $A + $T + $C + $G;
 	print ("\nGenome size: $GS\n");
 	
-	# Imprimo las frecuencias
-	print ("\nFrecuencias\n");
+	# Print frequencies
+	print ("\nFrequencies\n");
 	print ("A\t$A\n");
 	print ("T\t$T\n");
 	print ("C\t$C\n");
@@ -186,15 +196,15 @@ sub markov {
 	}
 	
 	#-----------------------------------------------------------------------------------------
-	# Calculo las frecuencias esperadas (Markov)
+	# Calculate expected frequencies (Markov)
 	
-	# Frecuencia de las bases
+	# Base frequencies
 	my $fA = $A/$GS;
 	my $fT = $T/$GS;
 	my $fC = $C/$GS;
 	my $fG = $G/$GS;
 	
-	# Numero esperado de motivos a partir de las frecuencias de mononucleotidos
+	# Expected number of motifs from mononucleotides frequencies
 	# Markov 0
 	my $markov0 = 1;
 	for (my $i = 0; $i <= $#p; $i++){
@@ -213,11 +223,11 @@ sub markov {
 	$markov0 = $markov0 * ($GS -8 +1);
 	
 	#-----
-	# Numero esperado de motivos a partir de las frecuencias de dinucleotidos
+	# Expected number of motifs from dinucleotides frequencies
 	# Markov 1
 	
 	print ("\n-----\nMarkov 1\n");
-	print ("Numerador\n");
+	print ("Numerator\n");
 	my $markov1_n = 1;
 	my $sino_n  = 0;
 	for (my $i = 0; $i < $#p; $i++){
@@ -227,11 +237,11 @@ sub markov {
 			print ("$p[$i].$p[$i+1]\t$Counts2{$p[$i].$p[$i+1]}\t$frec\t$markov1_n\n");
 			$sino_n = 1;
 		} else {
-			print ("no existe: $p[$i].$p[$i+1]\n");
+			print ("Does not exist: $p[$i].$p[$i+1]\n");
 		}
 	}
 	print ("-----\n");
-	print ("Denominador\n");
+	print ("Denominator\n");
 	my $markov1_d = 1;
 	for (my $i = 1; $i < $#p; $i++){
 		if ($p[$i] eq 'A'){
@@ -256,16 +266,16 @@ sub markov {
 	}
 	my $markov1 = 0;
 	if ($sino_n == 1){
-		print ("\nnumerador: $markov1_n\ndenominador: $markov1_d\n");
+		print ("\nnumerator: $markov1_n\ndenominator: $markov1_d\n");
 		$markov1 = ($markov1_n/$markov1_d)*($GS -8 +1);
 	}
 	
 	#-----
-	# Numero esperado de motivos a partir de las frecuencias de trinucleotidos
+	# Expected number of motifs from trinucleotides frequencies
 	# Markov 2
 	
 	print ("\n-----\nMarkov 2\n");
-	print ("Numerador\n");
+	print ("Numerator\n");
 	my $markov2_n = 1;
 	$sino_n  = 0;
 	for (my $i = 0; $i < ($#p -1); $i++){
@@ -275,11 +285,11 @@ sub markov {
 			print ("$p[$i].$p[$i+1].$p[$i+2]\t$Counts3{$p[$i].$p[$i+1].$p[$i+2]}\t$frec\t$markov2_n\n");
 			$sino_n = 1;
 		} else {
-			print ("no existe: $p[$i].$p[$i+1].$p[$i+2]\n");
+			print ("Does not exist: $p[$i].$p[$i+1].$p[$i+2]\n");
 		}
 	}
 	print ("-----\n");
-	print ("Denominador\n");
+	print ("Denominator\n");
 	my $markov2_d = 1;
 	for (my $i = 1; $i < ($#p -1); $i++){
 		if (exists $Counts2{$p[$i].$p[$i+1]}){
@@ -288,21 +298,21 @@ sub markov {
 			print ("$p[$i].$p[$i+1]\t$Counts2{$p[$i].$p[$i+1]}\t$frec\t$markov2_d\n");
 			$sino_n = 1;
 		} else {
-			print ("no existe: $p[$i].$p[$i+1]\n");
+			print ("Does not exist: $p[$i].$p[$i+1]\n");
 		}
 	}
 	my $markov2 = 0;
 	if ($sino_n == 1){
-		print ("-----\nnumerador: $markov2_n\ndenominador: $markov2_d\n");
+		print ("-----\nnumerator: $markov2_n\ndenominator: $markov2_d\n");
 		$markov2 = ($markov2_n/$markov2_d)*($GS -8 +1);
 	}
 	
 	#-----
-	# Numero esperado de motivos a partir de las frecuencias de tetranucleotidos
+	# Expected number of motifs from tetranucleotides frequencies
 	# Markov 3
 	
 	print ("\n-----\nMarkov 3\n");
-	print ("Numerador\n");
+	print ("Numerator\n");
 	my $markov3_n = 1;
 	$sino_n  = 0;
 	for (my $i = 0; $i < ($#p -2); $i++){
@@ -312,11 +322,11 @@ sub markov {
 			print ("$p[$i].$p[$i+1].$p[$i+2].$p[$i+3]\t$Counts4{$p[$i].$p[$i+1].$p[$i+2].$p[$i+3]}\t$frec\t$markov3_n\n");
 			$sino_n = 1;
 		} else {
-			print ("no existe: $p[$i].$p[$i+1].$p[$i+2].$p[$i+3]\n");
+			print ("Does not exist: $p[$i].$p[$i+1].$p[$i+2].$p[$i+3]\n");
 		}
 	}
 	print ("-----\n");
-	print ("Denominador\n");
+	print ("Denominator\n");
 	my $markov3_d = 1;
 	for (my $i = 1; $i < ($#p -2); $i++){
 		if (exists $Counts3{$p[$i].$p[$i+1].$p[$i+2]}){
@@ -325,17 +335,17 @@ sub markov {
 			print ("$p[$i].$p[$i+1].$p[$i+2]\t$Counts3{$p[$i].$p[$i+1].$p[$i+2]}\t$frec\t$markov3_d\n");
 			$sino_n = 1;
 		} else {
-			print ("no existe: $p[$i].$p[$i+1].$p[$i+2]\n");
+			print ("Does not exist: $p[$i].$p[$i+1].$p[$i+2]\n");
 		}
 	}
 	my $markov3 = 0;
 	if ($sino_n == 1){
-		print ("-----\nnumerador: $markov3_n\ndenominador: $markov3_d\n");
+		print ("-----\nnumerator: $markov3_n\ndenominator: $markov3_d\n");
 		$markov3 = ($markov3_n/$markov3_d)*($GS -8 +1);
 	}
 	
 	#-----------------------------------------------------------------------------------------
-	# Imprimiendo los resultados
+	# Printing results
 	
 	print ("-----\n");
 	print ("Obs\tA\tT\tC\tG\tN\tmarkov0\tmarkov1\tmarkov2\tmarkov3\n");
@@ -346,12 +356,6 @@ sub markov {
 	print ("\$markov3: $markov3\n");
 	
 	my $spp = $file;
-	$spp =~ s/\.\.\/\.\.\/GenomasGbk_1\///; 
-	$spp =~ s/.fasta//;
-	#open (ROB, ">outfile.txt") or die ("No puedo arbir outfile.txt\n");
-	#print ROB ("spp\tobs\tmarkov0\tmarkov1\tmarkov2\tmarkov3\tgenomesize\tA\tT\tC\tG\tN\n");
-	#print ROB ("$spp\t$obs\t$markov0\t$markov1\t$markov2\t$markov3\t$GS\t$A\t$T\t$C\t$G\t$N\n");
-	#close (ROB)
 	my @return = ($spp,$acc,$octa,$obs,$markov0,$markov1,$markov2,$markov3,$GS,$A,$T,$C,$G,$N);
 	return (\@return);
 }
