@@ -5,19 +5,13 @@ Data from the manuscript: "Phylogenetic correlation between the Type IV Secretio
 
 The following files are available:
 
-- cyanobacterial-tree.nwk. Maximum-likelihood cyanobacterial tree inferred from 32 concatenated protein sequences in newick format.
+- CyanoGenomes.txt List of genomes from cyanobacteria used in this study.
 
-- vector-1.csv. Vector used for Discrete analysis.
+- frequency-HIPs-389.txt. Frequency of all 256 palindromic octamers in 389 cyanobacterial genomes.
 
-- vector-2.csv. Vector used for Discrete analysis.
+- cyanobacterial-tree-389.nwk. Maximum-likelihood tree of 389 cyanobacterial genomes.
 
-- vector-3.csv. Vector used for Discrete analysis.
-
-- vector-4.csv. Vector used for Discrete analysis.
-
-- ObsExp-palindromic-octamers.csv. Frequency of all 256 palindromic octamers in 126 cyanobacterial genomes; expected frequency of all 256 palindromic octamers according to Markov model; enrichment p-value and FDR.
-
-- CyanoGenomes.txt Genome versions used in this study.
+- cyanobacterial-tree-166.nwk. Maximum-likelihood rooted tree of 166 cyanobacterial genomes.
 
 - Parallel_markov.pl A Perl script that enables parallel execution of `markovM.pl` across multiple FASTA/FNA files, utilizing all available CPU cores for maximum efficiency.
 
