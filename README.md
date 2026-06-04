@@ -12,6 +12,8 @@ The following files are available:
 - cyanobacterial-tree-389.nwk. Maximum-likelihood tree of 389 cyanobacterial genomes.
 
 - cyanobacterial-tree-166.nwk. Maximum-likelihood rooted tree of 166 cyanobacterial genomes.
+  
+- vector_m2_1e-308.txt. Vector of HIP1 overabundance, used in Discrete analysis.
 
 - Parallel_markov.pl A Perl script that enables parallel execution of `markovM.pl` across multiple FASTA/FNA files, utilizing all available CPU cores for maximum efficiency.
 
