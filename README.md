@@ -14,7 +14,7 @@ Data and scripts associated with the manuscript:
 ## 🌳 Phylogenetic Trees (Newick Format)
 
 * **`cyanobacterial-tree-389.nwk`**: Maximum-Likelihood (ML) phylogenetic tree inferred with IQ-TREE v3.0.1 encompassing all 389 initial cyanobacterial genomes.
-* **`cyanobacterial-tree-166.nwk`**: Rooted non-redundant ML phylogenetic tree of the 166 selected representative cyanobacterial genomes inferred with IQ-TREE v2.3.6 (without bootstrap support values, used for downstream comparative and evolutionary modeling).
+* **`cyanobacterial-tree-166.nwk`**: Rooted non-redundant ML phylogenetic tree of the 166 selected representative cyanobacterial genomes inferred with IQ-TREE v3.0.1 (without bootstrap support values, used for downstream comparative and evolutionary modeling).
 
 ## 📊 Palindrome & Evolutionary Analysis Data
 
