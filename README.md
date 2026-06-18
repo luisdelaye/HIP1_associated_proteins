@@ -19,7 +19,7 @@ Data and scripts associated with the manuscript:
 ## 📊 Palindrome & Evolutionary Analysis Data
 
 * **`frequency-HIPs-389.txt`**: Genomic frequency matrix and observed-to-expected ($O/E$) ratios calculated for all 256 possible palindromic octamers across the 389 cyanobacterial genomes.
-* **`vector_m2_1e-308.txt`**: Binarized vector ('1' or '0') representing the statistical overabundance status of the HIP1 palindrome ($\text{FDR} < 1 \times 10^{-308}$) across genomes, utilized as a phenotypic input for the BayesTraits v4.1.2 Discrete analysis.
+* **`vector_m2_1e-308.txt`**: Binarized vector ('1' or '0') representing the statistical overabundance status of the HIP1 palindrome ($\text{FDR} < 1 \times 10^{-308}$) across genomes, utilized as a phenotypic input for the BayesTraits v5 Discrete analysis.
 
 ## 💻 Computational Scripts
 
