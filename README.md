@@ -1,6 +1,3 @@
-HIP1_associated_proteins
-========================
-
 # Data and Scripts for Manuscript
 
 Data and scripts associated with the manuscript:  
